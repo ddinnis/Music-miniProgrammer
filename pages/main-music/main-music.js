@@ -11,7 +11,7 @@ const querySelectorThrottle = throttle(querySelector);
 Page({
   data: {
     bannerList: [],
-    searchValue: "",
+
     bannerHeight: 0,
     recommendSongsList: [],
     hotMenuList: [],
@@ -19,6 +19,9 @@ Page({
     // 榜单
     rankingInfos: {},
     isRankingData: false,
+    // 当前播放的歌曲信息
+    curSong: {},
+    isPlaying: false,
   },
 
   onLoad() {
@@ -31,20 +34,17 @@ Page({
     recommendStore.onState("recommendSongsInfo", this.handleRecommendStore);
     // 发起 actions toGetPlaylistDetail 的网络请求
     recommendStore.dispatch("toGetPlaylistDetail");
+    playStore.onStates(["curSong", "isPlaying"], this.handlePlaySongInfos);
 
     this.toGetMusicBanner();
     this.toGetHotMenu();
   },
-  // onPlaySong() {
-  //   wx.navigateTo({
-  //     url: "/pages/music-player/music-player",
-  //   });
-  // },
   onSearchClick() {
     wx.navigateTo({
       url: "/pages/detail-search/detail-search",
     });
   },
+
   async toGetMusicBanner() {
     const res = await getMusicBanner();
     this.setData({ bannerList: res.banners });
@@ -92,13 +92,32 @@ Page({
     const newRankingInfos = { ...this.data.rankingInfos, upRanking: value };
     this.setData({ rankingInfos: newRankingInfos });
   },
-  onUnloadL() {
+  onSongItemTap() {
+    playStore.setState("playSongsList", this.data.recommendSongsList);
+  },
+  handlePlaySongInfos({ curSong, isPlaying }) {
+    if (curSong) {
+      this.setData({ curSong });
+    }
+    if (isPlaying !== undefined) {
+      this.setData({ isPlaying });
+    }
+  },
+  onPlayOrPauseBtnTap() {
+    playStore.dispatch("changeMusicStatusActions");
+  },
+  onCoverTap() {
+    const id = this.data.curSong.id;
+    wx.navigateTo({
+      url: `/pages/music-player/music-player`,
+    });
+  },
+  onUnload() {
     recommendStore.offState("recommendSongs", this.handleRecommendStore);
     rankingStore.offState("newRanking", this.handleNewRanking);
     rankingStore.offState("originRanking", this.handleOriginRanking);
     rankingStore.offState("upRanking", this.handleUpRanking);
-  },
-  onSongItemTap() {
-    playStore.setState("playSongsList", this.data.recommendSongsList);
+
+    playStore.offStates("curSong", this, this.handlePlaySongInfos);
   },
 });

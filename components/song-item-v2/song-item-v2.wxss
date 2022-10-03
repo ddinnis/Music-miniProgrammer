@@ -3,6 +3,7 @@
 	display: flex;
 	align-items: center;
 	margin: 36rpx 0 10rpx;
+
 }
 
 .index {
@@ -31,4 +32,10 @@
 	width: 38rpx;
 	height: 22rpx;
 	margin-right: 10rpx;
+}
+
+.more-icon {
+	margin-right: 20rpx;
+	font-size: 40rpx;
+	color: #999;
 }

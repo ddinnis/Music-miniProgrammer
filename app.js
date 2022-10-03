@@ -17,5 +17,9 @@ App({
           res.screenHeight - res.statusBarHeight - 44;
       },
     });
+
+    wx.cloud.init({
+      env: "cloud1-5g9nodnxf4a0bfa6",
+    });
   },
 });

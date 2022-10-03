@@ -35,6 +35,20 @@
                     "query": "id=1822439628",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "我的页面",
+                    "pathName": "pages/main-profile/main-profile",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "搜索页面",
+                    "pathName": "pages/detail-search/detail-search",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
