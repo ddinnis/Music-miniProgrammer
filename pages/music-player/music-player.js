@@ -180,4 +180,11 @@ Page({
     // audioContext.pause();
     playStore.offStates(this.data.playInfosKeys, this.getPlayInfos);
   },
+  onShareAppMessage() {
+    return {
+      title: `${this.data.curSong.name} - ${this.data.curSong.ar[0].name}`,
+      path: `/pages/music-player/music-player?id=${this.data.id}`,
+      imageUrl: this.data.curSong.al.picUrl,
+    };
+  },
 });

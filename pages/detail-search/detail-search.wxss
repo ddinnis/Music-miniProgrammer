@@ -40,11 +40,15 @@ page {
 }
 
 .suggest .icon {
-	width: 90rpx;
-	height: 90rpx;
+	width: 80rpx;
+	height: 80rpx;
 }
 
 .suggest .list {
 	display: flex;
 	align-items: center;
+}
+
+.suggest .list .name {
+	flex: 1
 }

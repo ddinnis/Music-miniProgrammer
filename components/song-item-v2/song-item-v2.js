@@ -24,6 +24,10 @@ Component({
       type: Array,
       value: [],
     },
+    hasMore: {
+      type: Boolean,
+      value: true,
+    },
   },
   methods: {
     onSongItemTap() {

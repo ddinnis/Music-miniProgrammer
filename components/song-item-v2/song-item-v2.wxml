@@ -9,5 +9,7 @@
 		</view>
 	</view>
 	<!-- catchtap 阻止冒泡 -->
-	<van-icon name="more-o" class="more-icon" catchtap="onMoreIconTap" />
+	<view wx:if="{{hasMore}}">
+		<van-icon name="more-o" class="more-icon" catchtap="onMoreIconTap" />
+	</view>
 </view>

@@ -4,6 +4,7 @@ import {
   getSearchSuggest,
   getSearchRes,
 } from "../../service/search";
+import { throttle } from "underscore";
 Page({
   data: {
     hotList: [],
@@ -21,25 +22,20 @@ Page({
       this.setData({ hotList });
     });
   },
-  onChange(event) {
+  onChange: throttle(function (event) {
     this.setData({ searchValue: event.detail });
     getSearchSuggest(event.detail).then((res) => {
-      console.log(res);
-      if (res) {
-        this.setData({ searchSuggestList: res.result.songs });
-      }
+      this.setData({ searchSuggestList: res.result });
     });
-  },
-  onSearch(event) {
-    this.setData({ searchValue: event.detail });
-    getSearchRes(event.detail).then((res) => {
-      if (res) {
-        this.setData({ searchResList: res });
-      }
+  }),
+  onSearch() {
+    getSearchRes(this.data.searchValue).then((res) => {
+      this.setData({ searchResList: res.result.songs });
     });
   },
   onHotItemTap(event) {
     const searchValue = event.currentTarget.dataset.item.first;
     this.setData({ searchValue });
+    this.onSearch();
   },
 });

@@ -48,9 +48,16 @@ Page({
   },
   onTabsTap(event) {
     const item = event.currentTarget.dataset.item;
-    wx.navigateTo({
-      url: `/pages/detail-song/detail-song?type=profile&title=${item.name}&tabname=${item.type}`,
-    });
+    if (this.data.isLogin) {
+      wx.navigateTo({
+        url: `/pages/detail-song/detail-song?type=profile&title=${item.name}&tabname=${item.type}`,
+      });
+    } else {
+      wx.showToast({
+        title: "请先登录",
+        icon: "error",
+      });
+    }
   },
   onShowDialogTap() {
     this.setData({ isShowDialog: true });
@@ -77,7 +84,6 @@ Page({
   },
   async handleMenu(event) {
     const id = event.currentTarget.dataset.item._id;
-
     wx.navigateTo({
       url: `/pages/detail-song/detail-song?type=mymenu&id=${id}`,
     });
