@@ -20,6 +20,14 @@
             ]
         }
     ],
+    "preloadRule": {
+        "pages/main-music/main-music": {
+            "network": "all",
+            "packages": [
+                "packagePlayer"
+            ]
+        }
+    },
     "tabBar": {
         "list": [{
                 "pagePath": "pages/main-music/main-music",
